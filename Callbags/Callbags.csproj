@@ -41,11 +41,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Sink\Sink.cs" />
+    <Compile Include="Sink\Sinks.cs" />
     <Compile Include="Source\Iter.cs" />
     <Compile Include="Sink\ForEach.cs" />
     <Compile Include="Callbag.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Source\Source.cs" />
+    <Compile Include="Source\Sources.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

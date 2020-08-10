@@ -2,17 +2,12 @@
 
 namespace Callbags.Sink
 {
-    public class ForEach<T> : Sink<T>
+    class ForEach<T> : Sink<T>
     {
         private readonly Action<T> operation;
         private Callbag<T> talkback;
 
-        public static ForEach<T> forEach(Action<T> operation)
-        {
-            return new ForEach<T>(operation);
-        }
-
-        private ForEach(Action<T> operation)
+        public ForEach(Action<T> operation)
         {
             this.operation = operation;
         }

@@ -1,24 +1,22 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using Callbags;
-using System.Collections.Generic;
 
 namespace CallbagsTests.TestUtils
 {
     class AssertSink<T> : Callbag<T>
     {
-        private List<T> expected;
         private int index;
         private Callbag<T> talkback;
+        private Func<T, bool> onContinue;
 
-        public static AssertSink<T> Receives(List<T> expected)
+        public static AssertSink<T> Receives(Func<T, bool> onEach)
         {
-            return new AssertSink<T>(expected);
+            return new AssertSink<T>(onEach);
         }
 
-        private AssertSink(List<T> expected)
+        private AssertSink(Func<T, bool> onEach)
         {
-            this.expected = expected;
+            this.onContinue = onEach;
             index = 0;
         }
 
@@ -30,8 +28,13 @@ namespace CallbagsTests.TestUtils
 
         void Callbag<T>.Deliver(T payload)
         {
-            Assert.AreEqual(expected[index++], payload);
-            talkback.Deliver();
+            if (onContinue(payload))
+            {
+                talkback.Deliver();
+            } else
+            {
+                talkback.Terminate();
+            }
         }
 
         void Callbag<T>.Deliver()

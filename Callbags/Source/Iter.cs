@@ -2,7 +2,7 @@
 
 namespace Callbags.Source
 {
-    public class Iter<T> : Source<T>
+    class Iter<T> : Source<T>
     {
         private readonly IEnumerable<T> iterable;
 
@@ -38,12 +38,7 @@ namespace Callbags.Source
             }
         }
 
-        public static Iter<T> from(IEnumerable<T> items)
-        {
-            return new Iter<T>(items);
-        }
-        
-        private Iter(IEnumerable<T> items)
+        public Iter(IEnumerable<T> items)
         {
             iterable = items;
         }

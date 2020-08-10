@@ -3,6 +3,8 @@ using Callbags.Sink;
 using System.Collections.Generic;
 using CallbagsTests.TestUtils;
 using System.Threading.Tasks;
+using FsCheck;
+using System.Linq;
 
 namespace CallbagsTests.Sink
 {
@@ -10,32 +12,35 @@ namespace CallbagsTests.Sink
     public class TestForEach
     {
         [TestMethod]
-        public void Should_Process_Each_Item_From_A_Pullable()
+        public void Should_process_all_in_order_from_pullables()
         {
-            List<string> names = new List<string>(new string[] { "Fred", "Barney", "Wilma" });
-            int index = 0;
-
-            var source = PullableSource<string>.Sends(names);
-            var fixture = ForEach<string>.forEach((output) => Assert.AreEqual(names[index++], output));
-
-            source.Pipe(fixture);
-            Assert.AreEqual(names.Capacity, index);
+            Prop.ForAll<string[]>(strings =>
+            {
+                var sent = new List<string>(strings);
+                List<string> received = new List<string>();
+                var source = PullableSource<string>.Sends(sent);
+                var fixture = Sinks.forEach<string>((output) => received.Add(output));
+                source.Pipe(fixture);
+                return Enumerable.SequenceEqual(sent, received);
+            }).QuickCheckThrowOnFailure();
         }
 
+        // FSCheck 2 doesn't support async, wait for FSCheck 3
         [TestMethod]
-        public async Task Should_Process_Each_Item_From_A_Pushable()
+        public async Task Should_process_all_in_order_from_pusables()
         {
-            List<string> names = new List<string>(new string[] { "Fred", "Barney", "Wilma" });
-            int index = 0;
+            var sent = new List<string>(new string[] { "Fred", "Barney", "Wilma" });
+            List<string> received = new List<string>();
 
             var promise = new TaskCompletionSource<bool>();
-            var source = PushableSource<string>.Sends(names, promise);
-            var fixture = ForEach<string>.forEach((output) => Assert.AreEqual(names[index++], output));
+            var source = PushableSource<string>.Sends(sent, promise);
+            var fixture = Sinks.forEach<string>((output) => received.Add(output));
 
             source.Pipe(fixture);
+
             await promise.Task;
 
-            Assert.AreEqual(names.Capacity, index);
+            Assert.IsTrue(Enumerable.SequenceEqual(sent, received));
         }
     }
 }
