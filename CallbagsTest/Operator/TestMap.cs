@@ -19,14 +19,14 @@ namespace CallbagsTest.Operator
                 var sent = new List<int>(numbers);
                 var received = new List<int>();
                 var expected = new List<int>(numbers).Select(number => number * 2);
-                var source = PullableSource<int>.Sends(sent);
-                var fixture = Map<int, int>(number => number * 2);
-                var sink = AssertSink<int>.Receives(output =>
-                {
-                    received.Add(output);
-                    return true;
-                }, () => { }, () => Assert.Fail("Should not error out!"));
-                source.Pipe(fixture).Pipe(sink);
+                PullableSource<int>
+                    .Sends(sent)
+                    .Pipe(Map<int, int>(number => number * 2))
+                    .Pipe(AssertSink<int>.Receives(output =>
+                    {
+                        received.Add(output);
+                        return true;
+                    }, () => { }, () => Assert.Fail("Should not error out!")));
                 return expected.SequenceEqual(received);
             }).QuickCheckThrowOnFailure();
         }

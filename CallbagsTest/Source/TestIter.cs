@@ -19,13 +19,11 @@ namespace CallbagsTest.Source
             {
                 var sent = new List<string>(strings);
                 var received = new List<string>();
-                var source = From(sent);
-                var sink = AssertSink<string>.Receives(output =>
+                From(sent).Pipe(AssertSink<string>.Receives(output =>
                 {
                     received.Add(output);
                     return true;
-                }, () => { }, () => Assert.Fail("Should not error out!"));
-                source.Pipe(sink);
+                }, () => { }, () => Assert.Fail("Should not error out!")));
                 return sent.SequenceEqual(received);
             }).QuickCheckThrowOnFailure();
         }

@@ -19,9 +19,9 @@ namespace CallbagsTest.Sink
             {
                 var sent = new List<string>(strings);
                 var received = new List<string>();
-                var source = PullableSource<string>.Sends(sent);
-                var fixture = ForEach<string>(output => received.Add(output));
-                source.Pipe(fixture);
+                PullableSource<string>
+                    .Sends(sent)
+                    .Pipe(ForEach<string>(output => received.Add(output)));
                 return sent.SequenceEqual(received);
             }).QuickCheckThrowOnFailure();
         }
