@@ -2,37 +2,38 @@
 
 namespace Callbags.Sink
 {
-    class ForEach<T> : Sink<T>
+    internal class ForEach<T> : ISink<T>
     {
-        private readonly Action<T> operation;
-        private Callbag<T> talkback;
+        private readonly Action<T> _operation;
+        private readonly Action _onComplete;
+        private ISource<T> _talkback;
 
-        public ForEach(Action<T> operation)
+        public ForEach(Action<T> operation, Action onComplete = null)
         {
-            this.operation = operation;
+            _operation = operation;
+            _onComplete = onComplete;
         }
 
-        public override void Deliver(T payload)
+        public void Acknowledge(in ISource<T> talkback)
         {
-            if (talkback != null)
-            {
-                operation(payload);
-                talkback.Deliver();
-            }
+            _talkback = talkback;
+            _talkback.Request();
         }
 
-        public override void Greet(Callbag<T> talkback)
+        public void Deliver(in T data = default)
         {
-            if (talkback != null)
-            {
-                this.talkback = talkback;
-                this.talkback.Deliver();
-            }
+            _operation(data);
+            _talkback.Request();
         }
 
-        public override void Terminate()
+        public void Complete()
         {
-            talkback = null;
+            _onComplete?.Invoke();
+        }
+
+        public void Error<TE>(in TE error)
+        {
+            throw new NotSupportedException();
         }
     }
 }

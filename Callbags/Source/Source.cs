@@ -1,37 +1,12 @@
-﻿using System;
+﻿using System.Collections.Generic;
 
 namespace Callbags.Source
 {
-    public abstract class Source<T> : Callbag<T>
+    public static class Source
     {
-        public virtual void Deliver()
+        public static ISource<T> From<T>(IEnumerable<T> enumerable)
         {
-
-        }
-
-        public void Deliver(T payload)
-        {
-            throw new InvalidOperationException("Sources do not consume data");
-        }
-
-        public virtual void Greet(Callbag<T> payload)
-        {
-            throw new NotImplementedException("Greeting has not be implemented!");
-        }
-
-        public virtual void Terminate()
-        {
-
-        }
-
-        public virtual void Terminate(Exception payload)
-        {
-            Terminate();
-        }
-
-        public virtual void Pipe(Callbag<T> sink)
-        {
-            Greet(sink);
-        }
+            return new Iter<T>(enumerable);
+        } 
     }
 }

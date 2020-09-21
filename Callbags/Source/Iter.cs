@@ -1,52 +1,78 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Callbags.Source
 {
-    class Iter<T> : Source<T>
+    internal class Iter<T> : ISource<T>
     {
-        private readonly IEnumerable<T> iterable;
+        private readonly IEnumerable<T> _enumerable;
 
-        private class Talkback : Source<T>
+        public Iter(IEnumerable<T> enumerable)
         {
-            private bool completed;
-            private IEnumerator<T> iterable;
-            private Callbag<T> sink;
+            _enumerable = enumerable;
+        }
 
-            public Talkback(Callbag<T> sink, IEnumerator<T> iterable)
+        private class Talkback : ISource<T>
+        {
+            private readonly IEnumerator<T> _enumerator;
+            private readonly ISink<T> _sink;
+            private bool _sending;
+            
+            private bool Terminated { get; set; }
+
+            public Talkback(IEnumerator<T> enumerator, ISink<T> sink)
             {
-                this.sink = sink;
-                this.iterable = iterable;
+                _enumerator = enumerator;
+                _sink = sink;
             }
 
-            override public void Terminate()
+            public void Greet(in ISink<T> sink)
             {
-                completed = true;
+                throw new NotSupportedException();
             }
 
-            override public void Deliver()
+            public void Request()
             {
-                if (!completed)
+                if (Terminated || _sending) return;
+                _sending = true;
+                _enumerator.Reset();
+                while (_enumerator.MoveNext() && !Terminated)
                 {
-                    if (iterable.MoveNext())
-                    {
-                        sink.Deliver(iterable.Current);
-                    } else
-                    {
-                        sink.Terminate();
-                    }
+                    _sink.Deliver(_enumerator.Current);
                 }
+                _sending = false;
+                _sink.Complete();
+            }
+
+            public void Terminate()
+            {
+                Terminated = true;
+            }
+
+            public void Terminate<TE>(in TE error)
+            {
+                throw new NotSupportedException();
             }
         }
 
-        public Iter(IEnumerable<T> items)
+        public void Greet(in ISink<T> sink)
         {
-            iterable = items;
+            sink.Acknowledge(new Talkback(_enumerable.GetEnumerator(), sink));
         }
 
-        public override void Greet(Callbag<T> sink)
+        public void Request()
         {
-            sink.Greet(new Talkback(sink, iterable.GetEnumerator()));
+            throw new NotSupportedException();
         }
 
+        public void Terminate()
+        {
+            throw new NotSupportedException();
+        }
+
+        public void Terminate<TE>(in TE error)
+        {
+            throw new NotSupportedException();
+        }
     }
 }

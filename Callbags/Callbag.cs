@@ -1,13 +1,35 @@
-﻿using System;
-
-namespace Callbags
+﻿namespace Callbags 
 {
-    public interface Callbag<T>
+    
+    public interface ISource<T>
     {
-        void Greet(Callbag<T> payload);
-        void Deliver(T payload);
-        void Deliver();
-        void Terminate(Exception payload);
-        void Terminate();
+        public void Greet(in ISink<T> sink);
+        public void Request();
+        public void Terminate();
+        public void Terminate<TE>(in TE error);
+    }
+
+    public interface ISink<T>
+    {
+        public void Acknowledge(in ISource<T> talkback);
+        public void Deliver(in T data);
+        public void Complete();
+        public void Error<TE>(in TE error);
+    }
+    
+    public interface IOperator<I, O>: ISink<I>, ISource<O> {}
+    
+    public static class CallbagExtension
+    {
+        public static void Pipe<T>(this ISource<T> source, ISink<T> sink)
+        {
+            source.Greet(sink);
+        }
+
+        public static ISource<O> Pipe<I, O>(this ISource<I> source, IOperator<I, O> operation)
+        {
+            source.Greet(operation);
+            return operation;
+        }
     }
 }
