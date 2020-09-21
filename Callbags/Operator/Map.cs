@@ -2,7 +2,7 @@
 
 namespace Callbags.Operator
 {
-    public class Map<I, O>: IOperator<I, O>
+    internal class Map<I, O>: IOperator<I, O>
     {
         private ISource<I> _source;
         private ISink<O> _sink;

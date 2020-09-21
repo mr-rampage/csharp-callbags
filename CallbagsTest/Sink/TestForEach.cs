@@ -13,8 +13,8 @@ namespace CallbagsTest.Sink
     [TestClass]
     public class TestForEach
     {
-        [TestMethod]
-        public void Should_process_all_in_order_from_pullables()
+        [TestMethod("Should process all pullables in order")]
+        public void TestPullables()
         {
             Prop.ForAll<string[]>(strings =>
             {
@@ -28,8 +28,8 @@ namespace CallbagsTest.Sink
         }
 
         // FSCheck 2 doesn't support async, wait for FSCheck 3
-        [TestMethod]
-        public async Task Should_process_all_in_order_from_pusables()
+        [TestMethod("Should process all pushables in order")]
+        public async Task TestPushables()
         {
             var sent = new List<string>(new[] { "Fred", "Barney", "Wilma" });
             var received = new List<string>();

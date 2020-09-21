@@ -12,8 +12,8 @@ namespace CallbagsTests.Source
     public class TestIter
     {
 
-        [TestMethod]
-        public void Should_pull_items_in_order()
+        [TestMethod("Should deliver data from iterables.")]
+        public void TestPullables()
         {
             Prop.ForAll<string[]>(strings =>
             {
