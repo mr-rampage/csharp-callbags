@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Callbags;
 using CallbagsTest.TestUtils;
 using FsCheck;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -19,11 +18,12 @@ namespace CallbagsTest.Source
             {
                 var sent = new List<string>(strings);
                 var received = new List<string>();
-                From(sent).Pipe(AssertSink<string>.Receives(output =>
-                {
-                    received.Add(output);
-                    return true;
-                }, () => { }, () => Assert.Fail("Should not error out!")));
+                From(sent)
+                    .AssertSink(output =>
+                    {
+                        received.Add(output);
+                        return true;
+                    }, () => { }, () => Assert.Fail("Should not error out!"));
                 return sent.SequenceEqual(received);
             }).QuickCheckThrowOnFailure();
         }

@@ -2,11 +2,11 @@
 
 namespace Callbags.Sink
 {
-    public static class Sink
+    public static class SinkExtension
     {
-        public static ISink<T> ForEach<T>(in Action<T> operation)
+        public static void ForEach<T>(this ISource<T> source, in Action<T> operation)
         {
-            return new ForEach<T>(operation);
+            source.Greet(new ForEach<T>(operation));
         }
     }
 }

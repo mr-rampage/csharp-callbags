@@ -10,12 +10,7 @@ namespace CallbagsTest.TestUtils
         private readonly Action _onComplete;
         private readonly Action _onError;
 
-        public static AssertSink<T> Receives(Func<T, bool> onEach, Action onComplete = null, Action onError = null)
-        {
-            return new AssertSink<T>(onEach, onComplete, onError);
-        }
-
-        private AssertSink(Func<T, bool> onEach, Action onComplete, Action onError)
+        internal AssertSink(Func<T, bool> onEach, Action onComplete, Action onError)
         {
             _onContinue = onEach;
             _onComplete = onComplete;
@@ -47,6 +42,14 @@ namespace CallbagsTest.TestUtils
         public void Error<TE>(in TE error)
         {
             _onError?.Invoke();
+        }
+    }
+
+    public static class TestSink
+    {
+        public static void AssertSink<T>(this ISource<T> source, Func<T, bool> onEach, Action onComplete = null, Action onError = null)
+        {
+            source.Greet(new AssertSink<T>(onEach, onComplete, onError));
         }
     }
 }

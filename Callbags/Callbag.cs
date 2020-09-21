@@ -18,18 +18,4 @@
     }
     
     public interface IOperator<TInput, TOutput>: ISink<TInput>, ISource<TOutput> {}
-    
-    public static class CallbagExtension
-    {
-        public static void Pipe<T>(this ISource<T> source, ISink<T> sink)
-        {
-            source.Greet(sink);
-        }
-
-        public static ISource<TOutput> Pipe<TInput, TOutput>(this ISource<TInput> source, IOperator<TInput, TOutput> operation)
-        {
-            source.Greet(operation);
-            return operation;
-        }
-    }
 }

@@ -2,10 +2,9 @@
 using System.Linq;
 using System.Threading.Tasks;
 using CallbagsTest.TestUtils;
-using Callbags;
 using FsCheck;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using static Callbags.Sink.Sink;
+using Callbags.Sink;
 
 namespace CallbagsTest.Sink
 {
@@ -21,7 +20,7 @@ namespace CallbagsTest.Sink
                 var received = new List<string>();
                 PullableSource<string>
                     .Sends(sent)
-                    .Pipe(ForEach<string>(output => received.Add(output)));
+                    .ForEach(output => received.Add(output));
                 return sent.SequenceEqual(received);
             }).QuickCheckThrowOnFailure();
         }
@@ -34,14 +33,13 @@ namespace CallbagsTest.Sink
             var received = new List<string>();
 
             var promise = new TaskCompletionSource<bool>();
-            var source = PushableSource<string>.Sends(sent, promise);
-            var fixture = ForEach<string>((output) => received.Add(output));
-
-            source.Pipe(fixture);
+            PushableSource<string>
+                .Sends(sent, promise)
+                .ForEach(output => received.Add(output));
 
             await promise.Task;
 
-            Assert.IsTrue(Enumerable.SequenceEqual(sent, received));
+            Assert.IsTrue(sent.SequenceEqual(received));
         }
     }
 }

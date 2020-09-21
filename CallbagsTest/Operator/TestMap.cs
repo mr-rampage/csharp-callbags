@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Callbags;
+using Callbags.Operator;
 using CallbagsTest.TestUtils;
 using FsCheck;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using static Callbags.Operator.Operator;
 
 namespace CallbagsTest.Operator
 {
@@ -21,12 +20,12 @@ namespace CallbagsTest.Operator
                 var expected = new List<int>(numbers).Select(number => number * 2);
                 PullableSource<int>
                     .Sends(sent)
-                    .Pipe(Map<int, int>(number => number * 2))
-                    .Pipe(AssertSink<int>.Receives(output =>
+                    .Map(number => number * 2)
+                    .AssertSink(output =>
                     {
                         received.Add(output);
                         return true;
-                    }, () => { }, () => Assert.Fail("Should not error out!")));
+                    }, () => { }, () => Assert.Fail("Should not error out!"));
                 return expected.SequenceEqual(received);
             }).QuickCheckThrowOnFailure();
         }

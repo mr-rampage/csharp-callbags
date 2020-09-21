@@ -2,11 +2,13 @@
 
 namespace Callbags.Operator
 {
-    public static class Operator
+    public static class OperatorExtension
     {
-        public static IOperator<TInput, TOutput> Map<TInput, TOutput>(in Func<TInput, TOutput> operation)
+        public static ISource<TOutput> Map<TInput, TOutput>(this ISource<TInput> source, in Func<TInput, TOutput> operation)
         {
-            return new Map<TInput, TOutput>(operation);
+            var map = new Map<TInput, TOutput>(operation);
+            source.Greet(map);
+            return map;
         }
     }
 }
