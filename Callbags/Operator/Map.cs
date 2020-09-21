@@ -2,23 +2,23 @@
 
 namespace Callbags.Operator
 {
-    internal class Map<I, O>: IOperator<I, O>
+    internal sealed class Map<TInput, TOutput>: IOperator<TInput, TOutput>
     {
-        private ISource<I> _source;
-        private ISink<O> _sink;
-        private readonly Func<I, O> _transformation;
+        private ISource<TInput> _source;
+        private ISink<TOutput> _sink;
+        private readonly Func<TInput, TOutput> _transformation;
 
-        public Map(Func<I, O> transformation)
+        public Map(in Func<TInput, TOutput> transformation)
         {
             _transformation = transformation;
         }
         
-        public void Acknowledge(in ISource<I> source)
+        public void Acknowledge(in ISource<TInput> source)
         {
             _source = source;
         }
 
-        public void Deliver(in I data)
+        public void Deliver(in TInput data)
         {
             _sink.Deliver(_transformation(data));
         }
@@ -28,12 +28,12 @@ namespace Callbags.Operator
             _sink.Complete();
         }
 
-        public void Error<TE>(in TE error)
+        public void Error<TError>(in TError error)
         {
             _sink.Error(error);
         }
 
-        public void Greet(in ISink<O> sink)
+        public void Greet(in ISink<TOutput> sink)
         {
             _sink = sink;
             _sink.Acknowledge(this);
@@ -49,7 +49,7 @@ namespace Callbags.Operator
             _source.Terminate();
         }
 
-        public void Terminate<TE>(in TE error)
+        public void Terminate<TError>(in TError error)
         {
             _source.Terminate(error);
         }

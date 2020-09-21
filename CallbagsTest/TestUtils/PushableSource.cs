@@ -1,16 +1,16 @@
-﻿using Callbags;
+﻿using System;
 using System.Collections.Generic;
-using System.Timers;
-using System;
 using System.Threading.Tasks;
+using System.Timers;
+using Callbags;
 
-namespace CallbagsTests.TestUtils
+namespace CallbagsTest.TestUtils
 {
     class PushableSource<T>: ISource<T>
     {
         private readonly List<T> _data;
         private int _index;
-        private static Timer _timer;
+        private Timer _timer;
         private readonly TaskCompletionSource<bool> _promise;
         private ISink<T> _sink;
 

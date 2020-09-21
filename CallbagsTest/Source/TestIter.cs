@@ -1,12 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
-using FsCheck;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Callbags;
 using CallbagsTest.TestUtils;
+using FsCheck;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using static Callbags.Source.Source;
 
-namespace CallbagsTests.Source
+namespace CallbagsTest.Source
 {
     [TestClass]
     public class TestIter

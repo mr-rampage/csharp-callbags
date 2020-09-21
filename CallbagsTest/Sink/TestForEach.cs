@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using CallbagsTest.TestUtils;
 using Callbags;
-using CallbagsTests.TestUtils;
 using FsCheck;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using static Callbags.Sink.Sink;

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace Callbags.Source
 {
-    internal class Iter<T> : ISource<T>
+    internal sealed class Iter<T> : ISource<T>
     {
         private readonly IEnumerable<T> _enumerable;
 
-        public Iter(IEnumerable<T> enumerable)
+        public Iter(in IEnumerable<T> enumerable)
         {
             _enumerable = enumerable;
         }
@@ -20,7 +20,7 @@ namespace Callbags.Source
             
             private bool Terminated { get; set; }
 
-            public Talkback(IEnumerator<T> enumerator, ISink<T> sink)
+            public Talkback(in IEnumerator<T> enumerator, in ISink<T> sink)
             {
                 _enumerator = enumerator;
                 _sink = sink;
@@ -49,7 +49,7 @@ namespace Callbags.Source
                 Terminated = true;
             }
 
-            public void Terminate<TE>(in TE error)
+            public void Terminate<TError>(in TError error)
             {
                 throw new NotSupportedException();
             }
@@ -70,7 +70,7 @@ namespace Callbags.Source
             throw new NotSupportedException();
         }
 
-        public void Terminate<TE>(in TE error)
+        public void Terminate<TError>(in TError error)
         {
             throw new NotSupportedException();
         }

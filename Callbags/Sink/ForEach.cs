@@ -2,13 +2,13 @@
 
 namespace Callbags.Sink
 {
-    internal class ForEach<T> : ISink<T>
+    internal sealed class ForEach<T> : ISink<T>
     {
         private readonly Action<T> _operation;
         private readonly Action _onComplete;
         private ISource<T> _talkback;
 
-        public ForEach(Action<T> operation, Action onComplete = null)
+        public ForEach(in Action<T> operation, in Action onComplete = null)
         {
             _operation = operation;
             _onComplete = onComplete;
@@ -31,7 +31,7 @@ namespace Callbags.Sink
             _onComplete?.Invoke();
         }
 
-        public void Error<TE>(in TE error)
+        public void Error<TError>(in TError error)
         {
             throw new NotSupportedException();
         }

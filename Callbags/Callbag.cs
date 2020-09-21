@@ -6,7 +6,7 @@
         public void Greet(in ISink<T> sink);
         public void Request();
         public void Terminate();
-        public void Terminate<TE>(in TE error);
+        public void Terminate<TError>(in TError error);
     }
 
     public interface ISink<T>
@@ -14,10 +14,10 @@
         public void Acknowledge(in ISource<T> talkback);
         public void Deliver(in T data);
         public void Complete();
-        public void Error<TE>(in TE error);
+        public void Error<TError>(in TError error);
     }
     
-    public interface IOperator<I, O>: ISink<I>, ISource<O> {}
+    public interface IOperator<TInput, TOutput>: ISink<TInput>, ISource<TOutput> {}
     
     public static class CallbagExtension
     {
@@ -26,7 +26,7 @@
             source.Greet(sink);
         }
 
-        public static ISource<O> Pipe<I, O>(this ISource<I> source, IOperator<I, O> operation)
+        public static ISource<TOutput> Pipe<TInput, TOutput>(this ISource<TInput> source, IOperator<TInput, TOutput> operation)
         {
             source.Greet(operation);
             return operation;

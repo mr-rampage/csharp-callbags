@@ -4,9 +4,9 @@ namespace Callbags.Operator
 {
     public static class Operator
     {
-        public static IOperator<I, O> Map<I, O>(Func<I, O> operation)
+        public static IOperator<TInput, TOutput> Map<TInput, TOutput>(in Func<TInput, TOutput> operation)
         {
-            return new Map<I, O>(operation);
+            return new Map<TInput, TOutput>(operation);
         }
     }
 }
