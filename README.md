@@ -1,13 +1,15 @@
 # :handbag: C# Callbags
 
-A Demo implementation of Callbags as a way of understanding the Callbag specification from an OO perspective. This implementation is similiar to Linq, with the exception that standard Functional Programming terminology is used and this works with both pushable and pullable data.
+This is a proof of concept to demonstrate how to use the Callbag specification in an Object Oriented paradigm. Functional Programming can be mapped directly to Object Oriented programming with some changes, but the underlying philosophy can be preserved. The original intent of this project was to be used as a learning/teaching tool to introduce reactive stream based programming to an organization that consisted predominantly of Object Oriented programmers.
 
-TLDR; The Functional approach is way better, but if you're stuck on an OO project, it's still a great set of interfaces to use!
+The secondary goal was to explore the Dr. Alan Kay's intent of Object Oriented programming: 
 
-## How it works
+> OOP to me means only messaging, local retention and protection and hiding of state-process, and extreme late-binding of all things.
 
-A Source is a source of data. The data can deliver data on request or by notification.
+By that definition, Callbags appear to be a great fit. From the specification, Callbags are basically passing messages from Callbag to Callbag. The messages are simple: Greet, Deliver, and Terminate.
 
-A Sink is a consumer of data. The sink can request data or react to data. A Sink is a terminal for the data pipeline.
+# Resources
 
-An Operator is both a Source and Sink. An Operator can be used to chain a Source to Sink. Chaining is achieved by C# Extension functions similar to C# Linq.
+* [Callbag Specification](https://github.com/callbag/callbag)
+* [Callbag HowTo Guide](https://github.com/callbag/callbag/blob/master/getting-started.md)
+* [Why we need Callbags](https://staltz.com/why-we-need-callbags.html)
