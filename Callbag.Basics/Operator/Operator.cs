@@ -17,5 +17,12 @@ namespace Callbag.Basics.Operator
             source.Greet(filter);
             return filter;
         }
+
+        public static ISource<T> Skip<T>(this ISource<T> source, in int max)
+        {
+            var skip = new Skip<T>(max);
+            source.Greet(skip);
+            return skip;
+        }
     }
 }

@@ -1,9 +1,11 @@
-﻿namespace Callbag.Basics.Operator
+﻿using System;
+
+namespace Callbag.Basics.Operator
 {
     internal abstract class BaseOperator<TInput, TOutput>: IOperator<TInput, TOutput>
     {
-        protected ISource<TInput> Source { get; private set; }
-        protected ISink<TOutput> Sink { get; private set; }
+        protected ISource<TInput> Source { get; set; }
+        protected ISink<TOutput> Sink { get; set; }
         
         public virtual void Acknowledge(in ISource<TInput> source)
         {
@@ -41,6 +43,52 @@
         public virtual void Terminate<TError>(in TError error)
         {
             Source.Terminate(error);
+        }
+    }
+
+    internal abstract class TalkbackOperator<TInput, TOutput> : IOperator<TInput, TOutput>
+    {
+        protected ISource<TInput> Source { get; set; }
+        protected ISink<TOutput> Sink { get; set; }
+        
+        public virtual void Acknowledge(in ISource<TInput> talkback)
+        {
+            throw new NotSupportedException();
+        }
+
+        public virtual void Deliver(in TInput data)
+        {
+            throw new NotSupportedException();
+        }
+
+        public virtual void Complete()
+        {
+            throw new NotSupportedException();
+        }
+
+        public virtual void Error<TError>(in TError error)
+        {
+            throw new NotSupportedException();
+        }
+
+        public virtual void Greet(in ISink<TOutput> sink)
+        {
+            throw new NotSupportedException();
+        }
+
+        public virtual void Request()
+        {
+            throw new NotSupportedException();
+        }
+
+        public virtual void Terminate()
+        {
+            throw new NotSupportedException();
+        }
+
+        public virtual void Terminate<TError>(in TError error)
+        {
+            throw new NotSupportedException();
         }
     }
 }
