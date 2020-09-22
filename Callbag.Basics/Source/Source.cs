@@ -4,14 +4,14 @@ namespace Callbag.Basics.Source
 {
     public static class Source
     {
-        public static ISource<T> From<T>(in IEnumerable<T> enumerable)
+        public static ISource<T> From<T>(IEnumerable<T> enumerable)
         {
-            return new Iter<T>(enumerable);
+            return new SourceFactory<T>(sink => new Iter<T>(sink, enumerable.GetEnumerator()));
         }
 
-        public static ISource<int> Interval(in int period)
+        public static ISource<int> Interval(int period)
         {
-            return new Interval(period);
+            return new SourceFactory<int>(sink => new Interval(sink, period));
         }
     }
 }

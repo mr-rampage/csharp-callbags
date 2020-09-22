@@ -18,9 +18,9 @@ namespace Callbag.Basics.Operator
             return filter;
         }
 
-        public static ISource<T> Skip<T>(this ISource<T> source, in int max)
+        public static ISource<T> Skip<T>(this ISource<T> source, int max)
         {
-            var skip = new Skip<T>(max);
+            var skip = new OperatorFactory<T, T>(sink => new Skip<T>(sink, max));
             source.Greet(skip);
             return skip;
         }

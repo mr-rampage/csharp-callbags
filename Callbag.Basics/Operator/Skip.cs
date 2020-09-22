@@ -1,55 +1,32 @@
-﻿using System;
-
-namespace Callbag.Basics.Operator
+﻿namespace Callbag.Basics.Operator
 {
-    internal class Skip<T> : TalkbackOperator<T, T>
+    internal class Skip<T> : BaseOperator<T, T>
     {
         private readonly int _max;
+        private int _skipped;
 
-        public Skip(int max)
+        public Skip(ISink<T> sink, int max)
         {
             _max = max;
+            Sink = sink;
         }
 
         public override void Acknowledge(in ISource<T> source)
         {
-            Source = source;
+            base.Acknowledge(in source);
+            // Optimization to skip sending the request through the talkback
+            Sink.Acknowledge(source);
         }
 
-        public override void Greet(in ISink<T> sink)
+        public override void Deliver(in T data)
         {
-            Sink = sink;
-            Source.Greet(new Talkback(_max, Sink));
-        }
-
-        private class Talkback : BaseOperator<T, T>
-        {
-            private readonly int _max;
-            private int _skipped;
-            
-            public Talkback(int max, ISink<T> sink)
+            if (_skipped++ < _max)
             {
-                _max = max;
-                Sink = sink;
+                Source.Request();
             }
-
-            public override void Acknowledge(in ISource<T> source)
+            else
             {
-                base.Acknowledge(in source);
-                // Optimization to skip sending the request through the talkback
-                Sink.Acknowledge(source);
-            }
-
-            public override void Deliver(in T data)
-            {
-                if (_skipped++ < _max)
-                {
-                    Source.Request();
-                }
-                else
-                {
-                    Sink.Deliver(data);
-                }
+                Sink.Deliver(data);
             }
         }
     }
