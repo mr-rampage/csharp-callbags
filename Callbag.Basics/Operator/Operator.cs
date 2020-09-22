@@ -31,5 +31,19 @@ namespace Callbag.Basics.Operator
             source.Greet(take);
             return take;
         }
+
+        public static ISource<T> Scan<T>(this ISource<T> source, Func<T, T, T> reducer)
+        {
+            var scan = new OperatorFactory<T, T>(sink => new Scan<T>(sink, reducer));
+            source.Greet(scan);
+            return scan;
+        }
+
+        public static ISource<T> Scan<T>(this ISource<T> source, Func<T, T, T> reducer, T seed)
+        {
+            var scan = new OperatorFactory<T, T>(sink => new Scan<T>(sink, reducer, seed));
+            source.Greet(scan);
+            return scan;
+        }
     }
 }
