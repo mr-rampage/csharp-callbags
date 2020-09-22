@@ -24,5 +24,12 @@ namespace Callbag.Basics.Operator
             source.Greet(skip);
             return skip;
         }
+
+        public static ISource<T> Take<T>(this ISource<T> source, int max)
+        {
+            var take = new OperatorFactory<T, T>(sink => new Take<T>(sink, max));
+            source.Greet(take);
+            return take;
+        }
     }
 }

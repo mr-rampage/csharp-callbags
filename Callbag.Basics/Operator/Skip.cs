@@ -1,6 +1,6 @@
 ﻿namespace Callbag.Basics.Operator
 {
-    internal class Skip<T> : BaseOperator<T, T>
+    internal sealed class Skip<T> : BaseOperator<T, T>
     {
         private readonly int _max;
         private int _skipped;
