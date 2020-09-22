@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Callbags.Source
+namespace Callbag.Basics.Source
 {
     internal sealed class Iter<T> : ISource<T>
     {

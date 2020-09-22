@@ -1,4 +1,4 @@
-﻿namespace Callbags.Operator
+﻿namespace Callbag.Basics.Operator
 {
     internal abstract class BaseOperator<TInput, TOutput>: IOperator<TInput, TOutput>
     {

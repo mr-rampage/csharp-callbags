@@ -1,8 +1,10 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Callbags", "Callbags\Callbags.csproj", "{22582779-F8F9-4764-9787-F012B43F4DFE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Callbag", "Callbag\Callbag.csproj", "{22582779-F8F9-4764-9787-F012B43F4DFE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CallbagsTest", "CallbagsTest\CallbagsTest.csproj", "{8E7FABF2-2FD3-49BA-BC9C-B510D03B1C06}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Callbag.Basics.Test", "Callbag.Basics.Test\Callbag.Basics.Test.csproj", "{8E7FABF2-2FD3-49BA-BC9C-B510D03B1C06}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Callbag.Basics", "Callbag.Basics\Callbag.Basics.csproj", "{341E211C-7CF4-4B54-A74F-3047B305CDEA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +20,9 @@ Global
 		{8E7FABF2-2FD3-49BA-BC9C-B510D03B1C06}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E7FABF2-2FD3-49BA-BC9C-B510D03B1C06}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E7FABF2-2FD3-49BA-BC9C-B510D03B1C06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{341E211C-7CF4-4B54-A74F-3047B305CDEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{341E211C-7CF4-4B54-A74F-3047B305CDEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{341E211C-7CF4-4B54-A74F-3047B305CDEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{341E211C-7CF4-4B54-A74F-3047B305CDEA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Callbags.Operator
+namespace Callbag.Basics.Operator
 {
     public static class OperatorExtension
     {

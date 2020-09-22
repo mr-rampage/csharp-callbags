@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Callbags.Sink
+namespace Callbag.Basics.Sink
 {
     internal sealed class ForEach<T> : ISink<T>
     {

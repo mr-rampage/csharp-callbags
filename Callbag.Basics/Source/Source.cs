@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Callbags.Source
+namespace Callbag.Basics.Source
 {
     public static class Source
     {

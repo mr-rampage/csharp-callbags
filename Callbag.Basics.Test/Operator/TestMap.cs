@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Callbags.Operator;
-using CallbagsTest.TestUtils;
+using Callbag.Basics.Operator;
+using Callbag.Basics.Test.TestUtils;
 using FsCheck;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace CallbagsTest.Operator
+namespace Callbag.Basics.Test.Operator
 {
     [TestClass]
     public class TestMap

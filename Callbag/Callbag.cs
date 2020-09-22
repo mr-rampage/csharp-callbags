@@ -1,4 +1,4 @@
-﻿namespace Callbags 
+﻿namespace Callbag 
 {
     
     public interface ISource<T>

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Callbags.Operator
+namespace Callbag.Basics.Operator
 {
     internal sealed class Filter<T> : BaseOperator<T, T>
     {

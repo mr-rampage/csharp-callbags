@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Timers;
-using Callbags;
 
-namespace CallbagsTest.TestUtils
+
+namespace Callbag.Basics.Test.TestUtils
 {
     class PushableSource<T>: ISource<T>
     {

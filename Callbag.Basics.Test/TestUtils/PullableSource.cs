@@ -1,9 +1,9 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Callbags;
 using System.Collections.Generic;
 
-namespace CallbagsTest.TestUtils
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace Callbag.Basics.Test.TestUtils
 {
     class PullableSource<T> : ISource<T>
     {

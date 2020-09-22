@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CallbagsTest.TestUtils;
+using Callbag.Basics.Sink;
+using Callbag.Basics.Test.TestUtils;
 using FsCheck;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Callbags.Sink;
 
-namespace CallbagsTest.Sink
+namespace Callbag.Basics.Test.Sink
 {
     [TestClass]
     public class TestForEach

@@ -2,7 +2,6 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
-        <RootNamespace>CallbagsTest</RootNamespace>
 
         <IsPackable>false</IsPackable>
     </PropertyGroup>
@@ -16,7 +15,9 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Callbag.Basics\Callbag.Basics.csproj" />
       <ProjectReference Include="..\callbags\callbags.csproj" />
+      <ProjectReference Include="..\Callbag\Callbag.csproj" />
     </ItemGroup>
 
 </Project>

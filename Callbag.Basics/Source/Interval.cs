@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Timers;
 
-namespace Callbags.Source
+namespace Callbag.Basics.Source
 {
     internal sealed class Interval: ISource<int>
     {

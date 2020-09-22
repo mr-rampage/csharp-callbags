@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Callbags.Sink
+namespace Callbag.Basics.Sink
 {
     public static class SinkExtension
     {
