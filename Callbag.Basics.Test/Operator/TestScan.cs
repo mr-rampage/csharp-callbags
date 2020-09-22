@@ -4,6 +4,7 @@ using Callbag.Basics.Operator;
 using Callbag.Basics.Test.TestUtils;
 using FsCheck;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using static Callbag.Basics.Source.Source;
 
 namespace Callbag.Basics.Test.Operator
 {
@@ -27,6 +28,33 @@ namespace Callbag.Basics.Test.Operator
                         return true;
                     }, () => { }, () => Assert.Fail("Should not error out!"));
                 return sent.Count == 0 || expected == received.Last();
+            }).QuickCheckThrowOnFailure();
+        }
+
+        [TestMethod("Should output the same if the seed is the identity")]
+        public void TestIdentitySeed()
+        {
+            Prop.ForAll<string[]>(numbers =>
+            {
+                var sent = new List<string>(numbers);
+                var source = From(sent);
+                var withoutSeed = new List<string>();
+                source.Scan((acc, number) => acc + number)
+                    .AssertSink(output =>
+                    {
+                        withoutSeed.Add(output);
+                        return true;
+                    }, () => { }, () => Assert.Fail("Should not error out!"));
+                    
+                var withSeed = new List<string>();
+                source
+                    .Scan((acc, number) => acc + number, "")
+                    .AssertSink(output =>
+                    {
+                        withSeed.Add(output);
+                        return true;
+                    }, () => { }, () => Assert.Fail("Should not error out!"));
+                return sent.Count == 0  || withSeed.SequenceEqual(withoutSeed);
             }).QuickCheckThrowOnFailure();
         }
     }

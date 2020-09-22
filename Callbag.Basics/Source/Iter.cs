@@ -19,7 +19,6 @@ namespace Callbag.Basics.Source
 
         public void Greet(in ISink<T> sink)
         {
-            throw new NotSupportedException();
         }
 
         public void Request()
