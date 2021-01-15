@@ -30,7 +30,7 @@ namespace Callbag.Basics.Test.TestUtils
                 _talkback.Request();
             } else
             {
-                _talkback.Terminate();
+                _talkback.GoodBye();
             }
         }
 
@@ -39,7 +39,7 @@ namespace Callbag.Basics.Test.TestUtils
             _onComplete?.Invoke();
         }
 
-        public void Error<TE>(in TE error)
+        public void SendFailure<TE>(in TE error)
         {
             _onError?.Invoke();
         }

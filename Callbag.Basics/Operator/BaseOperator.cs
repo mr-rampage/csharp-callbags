@@ -17,9 +17,9 @@
             Sink.Complete();
         }
 
-        public virtual void Error<TError>(in TError error)
+        public virtual void SendFailure<TError>(in TError error)
         {
-            Sink.Error(error);
+            Sink.SendFailure(error);
         }
 
         public virtual void Greet(in ISink<TOutput> sink)
@@ -33,14 +33,14 @@
             Source.Request();
         }
 
-        public virtual void Terminate()
+        public virtual void GoodBye()
         {
-            Source.Terminate();
+            Source.GoodBye();
         }
 
-        public virtual void Terminate<TError>(in TError error)
+        public virtual void ReceiveFailure<TError>(in TError error)
         {
-            Source.Terminate(error);
+            Source.ReceiveFailure(error);
         }
     }
 }

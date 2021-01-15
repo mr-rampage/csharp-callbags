@@ -22,12 +22,12 @@ namespace Callbag.Basics.Source
             throw new NotSupportedException();
         }
 
-        public void Terminate()
+        public void GoodBye()
         {
             throw new NotSupportedException();
         }
 
-        public void Terminate<TError>(in TError error)
+        public void ReceiveFailure<TError>(in TError error)
         {
             throw new NotSupportedException();
         }

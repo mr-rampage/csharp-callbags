@@ -40,12 +40,12 @@ namespace Callbag.Basics.Test.TestUtils
             }
         }
 
-        public void Terminate()
+        public void GoodBye()
         {
             _index = 0;
         }
 
-        public void Terminate<TE>(in TE error)
+        public void ReceiveFailure<TE>(in TE error)
         {
             throw new NotSupportedException();
         }

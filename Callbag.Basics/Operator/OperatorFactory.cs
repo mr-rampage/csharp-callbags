@@ -33,7 +33,7 @@ namespace Callbag.Basics.Operator
             throw new NotSupportedException();
         }
 
-        public void Error<TError>(in TError error)
+        public void SendFailure<TError>(in TError error)
         {
             throw new NotSupportedException();
         }
@@ -44,12 +44,12 @@ namespace Callbag.Basics.Operator
             throw new NotSupportedException();
         }
 
-        public void Terminate()
+        public void GoodBye()
         {
             throw new NotSupportedException();
         }
 
-        public void Terminate<TError>(in TError error)
+        public void ReceiveFailure<TError>(in TError error)
         {
             throw new NotSupportedException();
         }

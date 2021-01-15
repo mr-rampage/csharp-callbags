@@ -30,7 +30,7 @@ namespace Callbag.Basics.Operator
                 if (_taken == _max && !_complete)
                 {
                     _complete = true;
-                    Source.Terminate();
+                    Source.GoodBye();
                     _sink.Complete();
                 }
             }
@@ -58,16 +58,16 @@ namespace Callbag.Basics.Operator
                 }
             }
 
-            public void Terminate()
+            public void GoodBye()
             {
                 _take._complete = true;
-                _take.Source.Terminate();
+                _take.Source.GoodBye();
             }
 
-            public void Terminate<TError>(in TError error)
+            public void ReceiveFailure<TError>(in TError error)
             {
                 _take._complete = true;
-                _take.Source.Terminate(error);
+                _take.Source.ReceiveFailure(error);
             }
         }
 

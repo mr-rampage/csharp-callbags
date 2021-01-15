@@ -35,12 +35,12 @@ namespace Callbag.Basics.Source
             _sink.Complete();
         }
 
-        public void Terminate()
+        public void GoodBye()
         {
             Terminated = true;
         }
 
-        public void Terminate<TError>(in TError error)
+        public void ReceiveFailure<TError>(in TError error)
         {
             throw new NotSupportedException();
         }

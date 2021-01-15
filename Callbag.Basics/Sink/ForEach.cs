@@ -31,7 +31,7 @@ namespace Callbag.Basics.Sink
             _onComplete?.Invoke();
         }
 
-        public void Error<TError>(in TError error)
+        public void SendFailure<TError>(in TError error)
         {
             throw new NotSupportedException();
         }

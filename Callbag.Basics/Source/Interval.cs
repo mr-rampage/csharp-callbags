@@ -32,14 +32,14 @@ namespace Callbag.Basics.Source
         {
         }
 
-        public void Terminate()
+        public void GoodBye()
         {
             _timer.Stop();
         }
 
-        public void Terminate<TError>(in TError error)
+        public void ReceiveFailure<TError>(in TError error)
         {
-            Terminate();
+            GoodBye();
         }
     }
 }
